@@ -1,2 +1,1 @@
-# Webpack-Configuration-Loader
-16.6
+# Webpack-Loader
