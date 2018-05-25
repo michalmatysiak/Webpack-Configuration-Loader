@@ -2,7 +2,8 @@ import React from "react";
 import uuid from "uuid";
 import style from "./App.css";
 import Title from "../components/Title";
-import List from "../components/TodoList";
+import TodoList from "../components/TodoList";
+import TodoForm from "../components/TodoForm";
 
 class App extends React.Component {
   constructor(props) {
@@ -20,17 +21,30 @@ class App extends React.Component {
         {
           id: 3,
           text: "feed my cat"
+        },
+        {
+          id: 4,
+          text: "clean the window"
+        },
+        {
+          id: 5,
+          text: "vacuum the room"
         }
-      ]
+      ],
+      value: ""
     };
+    this.removeTodo = this.removeTodo.bind(this);
   }
   addTodo(val) {
     const todo = {
-      text: val,
+      text: this.state.value,
       id: uuid.v4()
     };
     const data = [...this.state.data, todo];
-    this.setState({ data });
+    this.setState({ data, value: "" });
+  }
+  handleChange(event) {
+    this.setState({ value: event.target.value });
   }
   removeTodo(id) {
     const remainder = this.state.data.filter(todo => todo.id !== id);
@@ -40,11 +54,16 @@ class App extends React.Component {
     return (
       <div className={style.TodoApp}>
         <Title
-          title="Lista zadań do wykonania:"
-          length={this.state.data.length}
+          title="To Do Application"
+          tasks="Number of tasks: "
+          tasksNr={this.state.data.length}
         />
-        <Form add={this.addTodo.bind(this)} />
-        <List list={this.state.data} rem={this.removeTodo.bind(this)} />
+        <TodoList list={this.state.data} remove={this.removeTodo.bind(this)} />
+        <TodoForm
+          value={this.state.value}
+          addTodo={this.addTodo.bind(this)}
+          onChange={this.handleChange.bind(this)}
+        />
       </div>
     );
   }

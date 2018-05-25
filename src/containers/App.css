@@ -1,5 +1,9 @@
+body {
+    padding: 0;
+    margin: 0;
+}
 .TodoApp {
-    background-color: #F5F5F5;
+    background: linear-gradient(-90deg, #e3f2f6, #1fb729);
     color: #222;
     display: flex;
     flex-direction: column;
